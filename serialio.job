@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Slurm job options (name, compute nodes, job time)
+#SBATCH --job-name=serialio
+#SBATCH --time=00:05:00
+#SBATCH --output=%x-%j.out
+#SBATCH --nodes=1
+#SBATCH --tasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --qos=short
+#SBATCH --partition=standard
+
+# Set the number of threads to 1
+#   This prevents any threaded system libraries from automatically
+#   using threading.
+
+export OMP_NUM_THREADS=1
+export SRUN_CPUS_PER_TASK=${SLURM_CPUS_PER_TASK}
+
+srun --unbuffered --distribution=block:block ./serialio
