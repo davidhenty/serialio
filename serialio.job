@@ -17,4 +17,4 @@
 export OMP_NUM_THREADS=1
 export SRUN_CPUS_PER_TASK=${SLURM_CPUS_PER_TASK}
 
-srun --unbuffered --distribution=block:block ./serialio
+srun --unbuffered --distribution=block:block ./serialio data.out
