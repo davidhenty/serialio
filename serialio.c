@@ -3,11 +3,17 @@
 
 double wtime(void);
   
-int main(void)
+int main(int argc, char **argv)
 {
   int gig = 1024*1024*1024;
   int n =  gig/2;
   double tstart, tstop;
+
+  if (argc != 2)
+    {
+      printf("usage: serialio <filename>\n");
+      return 1;
+    }
 
   double *x = malloc(n*sizeof(double));
 
@@ -17,8 +23,9 @@ int main(void)
     }
 
   tstart = wtime();
-  FILE *fp = fopen("data.out", "w");
+  FILE *fp = fopen(argv[1], "w");
   fwrite(x, sizeof(double), n, fp);
+  fflush(fp);
   fclose(fp);
   tstop = wtime();
 
